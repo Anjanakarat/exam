@@ -15,8 +15,8 @@ class CreateClassregTable extends Migration
     {
         Schema::create('classreg', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('classid')->unique();
-            $table->integer('classname')->unique();
+            $table->string('classid')->unique();
+            $table->string('classname')->unique();
             $table->timestamps();
         });
     }
