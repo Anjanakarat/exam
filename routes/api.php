@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,21 +18,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('createuser/','examController@create_user');
+Route::get('getAllClass', 'classController@fn_get_all_class');
+Route::get('getAllSubjects', 'subjectController@fn_get_all_subjects');
 
-Route::get('userlogin/','examController@user_login');
-
-Route::post('createAdmin/','examController@create_admin');
-
-Route::get('adminLogin/','examController@admin_login');
-
-Route::post('classReg/','classController@classRegister');
-
-Route::post('subjectReg/','subjectController@subjectRegister');
-
-Route::get('classentry/','mcqController@classEntry');
-
-Route::get('subjectentry/','mcqController@subjectEntry');
-
-Route::post('questionentry/','mcqController@questionEntry');
-
+Route::post('createuser', 'examController@create_user');
+Route::post('userlogin', 'examController@user_login');
+Route::post('createClass', 'classController@fn_create_class');
+Route::post('createSubject', 'subjectController@fn_create_subject');
+Route::post('createQuestion', 'mcqController@fn_create_question');
+Route::post('getQuestion', 'mcqController@fn_get_question');

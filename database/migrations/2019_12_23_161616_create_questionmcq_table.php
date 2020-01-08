@@ -14,17 +14,14 @@ class CreateQuestionmcqTable extends Migration
     public function up()
     {
         Schema::create('questionmcq', function (Blueprint $table) {
-            $table->Increments('id');
-            $table->integer('fk_class_id')->unsigned();
-            $table->foreign('fk_class_id')->references('id')->on('classreg');
-            $table->integer('fk_subject_id')->unsigned();
-            $table->foreign('fk_subject_id')->references('id')->on('subject');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('fk_class_id');
+            $table->unsignedBigInteger('fk_subject_id');
+            $table->string('correct_option');
+            $table->string('title');
             $table->string('question');
-            $table->string('optionA');
-            $table->string('optionB');
-            $table->string('optionC');
-            $table->string('optionD');
-            $table->string('correctanswer');
+            $table->foreign('fk_class_id')->references('id')->on('classreg');
+            $table->foreign('fk_subject_id')->references('id')->on('subject');
             $table->timestamps();
         });
     }
