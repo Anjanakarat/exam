@@ -13,13 +13,13 @@ class mcqController extends Controller
 {
     public function classEntry(){
 
-		    return response()->json(classReg::get());
+		    return response()->json(classReg::get('classname'));
   
       	   }
 
 	public function subjectEntry(){
         
-         return response()->json(subReg::get());
+         return response()->json(subReg::get('subjectname'));
 	     
 	     } 
 
@@ -51,10 +51,8 @@ class mcqController extends Controller
 		          	];
 		          	  return response()->json($response);
 		          }
-       
-      
-      
- 
-   }	       
+            
+         }	       
+  
 }           
 

@@ -19,11 +19,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('createuser/','examController@create_user');
 
-Route::get('userlogin/','examController@user_login');
+Route::post('userlogin/','examController@user_login');
 
 Route::post('createAdmin/','examController@create_admin');
 
-Route::get('adminLogin/','examController@admin_login');
+Route::post('adminLogin/','examController@admin_login');
 
 Route::post('classReg/','classController@classRegister');
 
@@ -34,4 +34,14 @@ Route::get('classentry/','mcqController@classEntry');
 Route::get('subjectentry/','mcqController@subjectEntry');
 
 Route::post('questionentry/','mcqController@questionEntry');
+
+Route::post('paperentry/','paperController@paperEntry');
+
+Route::get('classview/','userController@classEntry');
+
+Route::get('subjectview/','userController@subjectEntry');
+
+Route::get('questionview/','userController@questionView');
+
+Route::post('onlinexam/','userController@onlinexam');
 

@@ -63,7 +63,12 @@ class examController extends Controller
                    $response = [
                     "status" => 1,
                     "userID" => $user-> id
+
                  ];
+
+                   // create session for storing username  and second name
+                   
+
                    return response($response);  
                 }else{
                    $response = [
