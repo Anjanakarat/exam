@@ -3,56 +3,55 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Faceades\Storage;
 use App\questionmcq;
-use App\classReg;
-use App\subReg;
-use DB;
+use App\QuestionOptions;
 
 class mcqController extends Controller
 {
-    public function classEntry(){
+	public function fn_create_question(Request $request)
+	{
+		$question_obj = new questionmcq();
+		$question_obj->fk_class_id = $request->input('class_id');
+		$question_obj->fk_subject_id = $request->input('subject_id');
+		$question_obj->question = $request->input('question');
+		$question_obj->title = $request->input('title');
+		$question_obj->correct_option = $request->input('correctOption');
+		$question_obj->save();
 
-		    return response()->json(classReg::get('classname'));
-  
-      	   }
+		$options = $request->input('options');
+		foreach ($options as $option) {
+			$option_obj = new QuestionOptions();
+			$option_obj->option = $option;
+			$option_obj->fk_question_id = $question_obj->id;
+			$option_obj->save();
+		}
 
-	public function subjectEntry(){
-        
-         return response()->json(subReg::get('subjectname'));
-	     
-	     } 
+		if ($question_obj->id > 0) {
+			$response = [
+				"status" => 1,
+				"msg" => "question added"
+			];
+			return response($response);
+		} else {
+			$response = [
+				"status" => 0,
+				"msg" => "failed"
+			];
+			return response($response);
+		}
+	}
 
-	public function questionEntry(Request $request){
-		
+	public function fn_get_question(Request $req)
+	{
+		$query = [
+			'fk_class_id' => $req->input('class_id'),
+			'fk_subject_id' => $req->input('subject_id')
+		];
+		$questions = questionmcq::where($query)->get(['id', 'question', 'title']);
+		foreach ($questions as $question) {
+			$question->options = $question->options; 
+		}
+		return response($questions);
+	}
 
-	        $question = new questionmcq();
-
-			$question-> fk_class_id = $request->input('fk_class_id');
-			$question-> fk_subject_id = $request->input('fk_subject_id');
-			$question-> question = $request->input('question');
-			$question-> optionA = $request->input('optionA');
-    	    $question-> optionB = $request->input('optionB');
-    	    $question-> optionC = $request->input('optionC');
-    	    $question-> optionD = $request->input('optionD');
-			$question-> correctanswer = $request->input('correctanswer');
-
-			$question->save();
-			    if($question -> id > 0){
-		          	$response = [
-		          		"status" => 1,
-		          		"msg" => "question added"
-		          	];
-		          	 return response()->json($response);
-		          } else {
-		          	$response = [
-		          		"status" => 0,
-		          		"msg" => "failed"
-		          	];
-		          	  return response()->json($response);
-		          }
-            
-         }	       
-  
-}           
-
+}

@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class questionmcq extends Model
 {
-    protected $table='questionmcq';
-    protected $fillable=['fk_class_id','fk_subject_id','question','optionA','optionB','optionC','optionD','correctanswer',];
+    protected $table = 'questionmcq';
+
+    public function options()
+    {
+        return $this->hasMany(QuestionOptions::class, 'fk_question_id')->select(['id', 'option']);
+    }
 }

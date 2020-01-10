@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class subReg extends Model
+class QuestionOptions extends Model
 {
-    protected $table = 'subject';
+    //
 }
